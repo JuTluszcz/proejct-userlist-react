@@ -4,7 +4,7 @@ import UserService from "./UserService";
 function UserList(){
     const [users,setUsers]= useState([]);
     const [page,setPage] =useState(1);
-    const [size,useSize] = useState(6);
+    const [size,setSize] = useState(6);
     const [totalPages,setTotalPages]=useState(1);
 
     useEffect(()=>{
@@ -32,6 +32,9 @@ function UserList(){
 
     }
 
+    const perPage= [2, 5, 10, 15].map(e=><option value={e}>{e}</option>);
+    const handleChangeSize = (event)=>setSize(event.target.value);
+
     return(
         <>
             <table className="table table-striped table-hover">
@@ -55,7 +58,12 @@ function UserList(){
                 </tbody>
             </table>
             <div>
-                {pageItems}
+                <ul className="pagination justify-content-center">
+                    {pageItems}
+                    <select className="form-select ms-2 w-auto" onChange={handleChangeSize}>
+                        {perPage}
+                    </select>
+                </ul>
             </div>
         </>
     );
